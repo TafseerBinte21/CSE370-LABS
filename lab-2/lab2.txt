@@ -1,0 +1,29 @@
+1.select distinct multiplier from users order by multiplier desc;	
+
+2.select distinct member_since from users  order by member_since asc;
+
+3.select member_id,email from users where email like "%com";
+
+4.select name,email from users order by member_since desc limit 5 ; 
+
+5.select count(name) from users;
+
+6.select multiplier, count(*) from users  where member_since >"2020-04-30" group by multiplier  ;
+
+7.select avg(length(name)) from users ; 
+
+8.select distinct substring_index(email, ".",-1)  from users;
+
+9.select name from users order by member_since asc ;
+
+10.select name from users where  influence_count = (select max(influence_count) from users) and member_since > "2020-05-18" ;
+
+11.select name from users where influence_count < 700000 and  multiplier = (select max(multiplier) from users where influence_count < 700000 ) ;
+
+12.select distinct multiplier from users where influence_count < 900000; 
+
+13.select avg(influence_count) from users where member_since < "2020-6-11";  
+
+14.select member_id, name, email, multiplier from users where influence_count between 700000 and 990000 and member_since > "2020-05-18";
+
+15.Select member_id, name, email, influence_count From users where name like '%u%o%v%n%s%m%' ;

@@ -1,0 +1,33 @@
+1.select first_name, last_name, email, phone_number, hire_date,department_id from employees where hire_date = "2021-09-27" group by department_id; 
+
+2.select first_name, last_name, employee_id, phone_number, salary,department_id from employees where hire_date ="2019-02-11" group by department_id;
+
+3.select  first_name, last_name, employee_id, phone_number, salary, department_id from employees where salary = (select min(salary) from employees);
+
+4.select  first_name, last_name, employee_id, commission_pct , department_id from employees where department_id = 9 and commission_pct < (select min(commission_pct) from employees where department_id = 1 or 7 );
+
+5.select department_id, count(*) from employees group by department_id;
+
+6.select  first_name, last_name, employee_id, email, salary ,department_id from employees where hire_date < "2020-01-01";
+
+7.select first_name, last_name, employee_id, email, salary, department_id from employees  where manager_id = "m301" and salary in(select max(salary) from employees where manager_id ="m301")  ;
+
+
+8.select department_id from employees where salary >30000 and salary in(select max(salary) from  employees GROUP BY  department_id);
+
+9.select department_id, job_id ,commission_pct from employees where commission_pct not in (SELECT max(commission_pct) from employees GROUP BY department_id) ;
+
+
+10.select first_name, last_name, employee_id, email, salary, department_id, commission_pct from employees where commission_pct in(SELECT MIN(commission_pct ) from employees GROUP BY manager_id);
+
+11.select COUNT(*) from employees where employee_id = manager_id ;
+
+
+12.select department_id, job_id ,salary from employees where salary not in (SELECT max(salary) from employees GROUP BY department_id) ;
+
+13.select distinct manager_id from employees E1 where exists( select * from employees E2 where E1.manager_id = E2.manager_id and E1.salary < 1500) ;
+
+
+14.select distinct manager_id from employees E1 where exists( select * from employees E2 where E1.manager_id = E2.manager_id and E1.commission_pct < 15.25) ;
+
+15.select distinct  manager_id from employees where salary  in ( select min(salary) from employees  group by manager_id ) and salary > 3500 ;

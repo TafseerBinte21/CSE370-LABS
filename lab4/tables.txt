@@ -1,0 +1,32 @@
+create table customer (customer_id varchar(10) not null, customer_name varchar(20) not null,
+customer_street varchar(30), customer_city varchar(30), primary key (customer_id)) ;
+
+create table branch (branch_name varchar(15), branch_city varchar(30), assets int, primary key
+(branch_name), check (assets >= 0)) ;
+
+create table account(
+branch_name varchar(15),
+account_number varchar(10) not null,
+balance int,
+primary key (account_number),
+check (balance >= 0)) ;
+
+
+create table loan
+(loan_number varchar(10) not null,
+branch_name varchar(15),
+amount int,
+primary key (loan_number));
+
+create table depositor
+(customer_id varchar(10) not null,
+account_number varchar(10) not null,
+primary key (customer_id,account_number),
+foreign key (customer_id) references customer(customer_id),
+foreign key (account_number) references account(account_number));
+
+create table borrower (customer_id varchar(10) not null,
+loan_number varchar(10) not null,
+primary key (customer_id, loan_number),
+foreign key (customer_id) references customer(customer_id),
+foreign key (loan_number) references loan(loan_number));

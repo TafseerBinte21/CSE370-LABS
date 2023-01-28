@@ -1,0 +1,19 @@
+1.select c.customer_name, b.loan_number from customer c, borrower b, loan l where c.customer_id = b.customer_id and b.loan_number = l.loan_number and l.branch_name = "Downtown" ;
+
+2.select branch_name, branch_city from branch where assets > any(select Min(assets) from branch where branch_city = "Horseneck") ;
+
+3.select b.branch_name, COALESCE(depositor.depositor_number,0) as no_of_depositor from branch b Left Join (select branch_name, count(account_number) as depositor_number from account group by branch_name) depositor on b.branch_name = depositor.branch_name;
+
+4.select c1.customer_name as Customer1, c2.customer_name as Customer2, c1.customer_city as city from customer c1, customer c2 where c1.customer_name != c2.customer_name and c1.customer_city = c2.customer_city Group by c1.customer_city;
+
+5.select branch_name as Branch_name, (sum(balance)*0.04) as Total_Interest from account group by branch_name;
+
+6.select account_number, balance from account where balance in (select max(balance) from account inner join branch on account.branch_name = branch.branch_name group by branch_city);
+
+7.select branch_name from branch where assets < all(select Min(assets) from branch where branch_city = "Brooklyn");
+
+8.select customer_name, loan_number, amount from (select C.customer_name, B.loan_number, L.amount from customer C, borrower B, loan L where C.customer_id=B.customer_id and B.loan_number=L.loan_number order by amount desc, loan_number desc limit 5)sub order by amount asc, loan_number desc;
+
+9.select c.customer_name from customer c, depositor d, account a, loan l, borrower b where c.customer_id=d.customer_id and d.account_number=a.account_number and a.branch_name="Perryridge" and c.customer_id=b.customer_id and b.loan_number=l.loan_number and l.branch_name="Perryridge";
+
+10.select customer_id, sum(amount) from loan L inner join borrower b on b.loan_number = L.loan_number group by b.customer_id  having count(b.customer_id) >=2;
